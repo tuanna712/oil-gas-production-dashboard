@@ -1,0 +1,253 @@
+.js-plotly-plot .plotly .modebar {
+  padding-top: 5%;
+  margin-right: 3.5%;
+}
+
+body {
+  background-color: #f2f2f2;
+  margin: 5%;
+}
+
+.two.columns {
+  width: 16.25%;
+}
+
+.column,
+.columns {
+  margin-left: 0.5%;
+}
+
+.pretty_container {
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 10px;
+  padding: 15px;
+  position: relative;
+  box-shadow: 2px 2px 2px lightgrey;
+}
+
+.bare_container {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.dcc_control {
+  margin: 0;
+  padding: 5px;
+  width: calc(100%-40px);
+}
+
+.control_label {
+  margin: 0;
+  padding: 10px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  width: calc(100%-40px);
+}
+
+.rc-slider {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+.flex-display {
+  display: flex;
+}
+
+.container-display {
+  display: flex;
+}
+
+#individual_graph,
+#aggregate_graph {
+  width: calc(100% - 30px);
+  position: absolute;
+}
+
+#count_graph {
+  position: absolute;
+  height: calc(100% - 30px);
+  width: calc(100% - 30px);
+}
+
+#countGraphContainer {
+  flex: 5;
+  position: relative;
+}
+
+#header {
+  align-items: center;
+}
+
+#learn-more-button {
+  text-align: center;
+  height: 100%;
+  padding: 0 20px;
+  text-transform: none;
+  font-size: 15px;
+  float: right;
+  margin-right: 10px;
+  margin-top: 30px;
+}
+#title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  /* color: #2A398C; */
+}
+
+.mini_container {
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 5px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  padding: 0px;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  position: relative;
+  box-shadow: 2px 2px 2px lightgrey;
+}
+
+#right-column {
+  display: flex;
+  flex-direction: column;
+}
+
+#well {
+  flex: 1;
+}
+
+#gas {
+  flex: 1;
+}
+
+#wct {
+  flex: 1;
+}
+
+#aggregate_data {
+  align-items: center;
+}
+
+#oil {
+  flex: 1;
+}
+
+
+#water {
+  flex: 1;
+}
+
+#tripleContainer {
+  display: flex;
+  flex: 3;
+}
+
+#mainContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#pie_graph > div > div > svg:nth-child(3) > g.infolayer > g.legend {
+  pointer-events: all;
+  transform: translate(30px, 349px);
+}
+
+/* Style for the button-like links */
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #eeeeee; 
+    color: #205072;
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.button-link:hover {
+    background-color: #205072; /* Darker blue on hover */
+    border-color: #205072;
+    color: white;
+}
+
+/* Optional: Style for the container of the buttons */
+.button-container {
+    display: flex; /* Use flexbox for better alignment if needed */
+    flex-wrap: wrap; /* Allow buttons to wrap to the next line */
+    justify-content: flex-end;
+    gap: 10px; /* Space between buttons */
+    width: 100%; /* Full width */;
+}
+
+#wellName,
+#gasMonth,
+#oilMonth,
+#waterMonth,
+#GOR {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0px;
+  margin-top: 10px;
+  padding: 0px;
+}
+
+#dayOn,
+#gasRate,
+#oilRate,
+#waterRate,
+#WCT {
+  font-weight: bold;
+  margin: 0px;
+  padding: 0px;
+}
+
+#stat_text {
+  font-size: 14px;
+  margin: 0px;
+  padding: 0px;
+  color: #205072;
+}
+
+#right-charts-panel {
+    display: flex;
+    flex-wrap: wrap; /* Allow pairs of charts to wrap if necessary */
+    width: 100%;
+    height: 100%; /* Take full height of its parent (dashboard-container) */
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    gap: 11px; /* Space between chart pairs */
+    overflow-y: auto; /* Allow vertical scrolling within the right panel if content exceeds height */
+    border: 1px solid #f2f2f2; /* Optional: for visualization */
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.chart-pair-container {
+    display: flex;
+    flex-direction: column; /* Stack charts vertically within the pair */
+    flex: 1 1 48%; /* Flex-grow, flex-shrink, flex-basis. Allows two columns */
+                  /* flex-basis 48% ensures two pairs can fit side-by-side with gap */
+    min-width: 300px; /* Minimum width before wrapping */
+    height: calc(50% - 5px); /* Half the height of parent minus half the gap */
+    box-sizing: border-box;
+    /* border: 1px solid #eee; Optional: for visualization
+    border-radius: 5px; */
+    padding: 5px;
+    gap: 5px; /* Space between individual charts within a pair */
+}
+
+.chart-item {
+    flex: 1; /* Each chart takes equal available space within its parent (.chart-pair-container) */
+    width: 100%; /* Ensure graph takes full width of its container */
+    height: 100%; /* Ensure graph takes full height of its container */
+    min-height: 200px; /* Optional: minimum height for each chart */
+    box-sizing: border-box;
+    border-radius: 5px;
+}
