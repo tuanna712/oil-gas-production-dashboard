@@ -1,6 +1,5 @@
 # Oil Gas Production Dashboard
-
-This repository contains a Dash Plotly project for building a web dashboard to monitor oil and gas production data. This project is under INFO 5602 class at CU Boulder, 2025 Summer.
+This repository contains a Dash Plotly project for building a web dashboard to monitor oil and gas production data. This project is part of INFO 5602, taught by [Prof. Abel Iyasele](https://www.colorado.edu/cmci/people/information-science/abel-iyasele) at CU Boulder, Summer 2025.
 
 ## Features
 
