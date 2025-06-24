@@ -1,6 +1,10 @@
 # Oil Gas Production Dashboard
 This repository contains a Dash Plotly project for building a web dashboard to monitor oil and gas production data. This project is part of INFO 5602, taught by [Prof. Abel Iyasele](https://www.colorado.edu/cmci/people/information-science/abel-iyasele) at CU Boulder, Summer 2025.
 
+## Project Preview
+
+![Dashboard Preview](assets/preview.png)
+
 ## Features
 
 - Interactive visualizations for oil and gas production metrics
@@ -42,3 +46,7 @@ You can deploy `app.py` to web services such as Heroku, Azure, or AWS. Refer to 
 ## License
 
 This project is licensed under the MIT License.
+
+## Demo
+
+A live demo can be seen here: [https://oil-gas-production-dashboard.onrender.com/](https://oil-gas-production-dashboard.onrender.com/)
