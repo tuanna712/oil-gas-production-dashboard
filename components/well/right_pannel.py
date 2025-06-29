@@ -238,7 +238,7 @@ def update_well_statistics(well_name, map_hover_data):
     def calculate_percentage_change(current, previous):
         if previous == 0:
             return "0 %"
-        change = ((current) / previous) * 100
+        change = ((current- previous) / previous) * 100
         return f"{round(change,2)} %"
     oil_change = calculate_percentage_change(well_df_last["OilMo"], well_df_prev["OilMo"])
     gas_change = calculate_percentage_change(well_df_last["GasMo"], well_df_prev["GasMo"])
@@ -275,9 +275,9 @@ def get_color_style(percentage_value):
     if percentage_value is None:
         return {'color': 'black'}
 
-    if percentage_value < 90:
+    if percentage_value < 0:
         return {'color': '#c30010', 'font-weight': 'bold'}
-    elif 90 <= percentage_value < 100:
+    elif percentage_value == 0:
         return {'color': '#1967AC', 'font-weight': 'bold'}
     else:
         return {'color': '#169046', 'font-weight': 'bold'}
@@ -310,10 +310,12 @@ def update_all_styles(oil_change_children, gas_change_children, water_change_chi
     
     # Helper to parse the string like "95%" to a float 95.0
     def parse_percentage_string(s):
+        print(s)
         if s is None:
             return None
         # Use regex to find digits and an optional decimal point
-        match = re.search(r'(\d+(\.\d+)?)', str(s))
+        match = re.search(r'(-?\d+(\.\d+)?)', str(s))
+        print(match.group(1))
         if match:
             return float(match.group(1))
         return None # Return None if parsing fails
