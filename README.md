@@ -22,7 +22,7 @@ This repository contains a Dash Plotly project for building a web dashboard to m
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/your-username/oil-gas-production-dashboard.git
+    git clone https://github.com/tuanna712/oil-gas-production-dashboard.git
     cd oil-gas-production-dashboard
     ```
 2. Install dependencies:
