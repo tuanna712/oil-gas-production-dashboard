@@ -1,9 +1,6 @@
 import dash
 from dash import html, dcc, Input, Output, State, ClientsideFunction, callback
-from data import load_wells, load_data
-from graphs.map import update_mapbox_graph
-from components.well.left_pannel import well_selection, mapbox_map
-from components.well.right_pannel import well_statistics, right_charts,  update_well_statistics
+
 from controls import WELLS
 
 dash.register_page(__name__, 
@@ -13,6 +10,7 @@ dash.register_page(__name__,
                     image='assets/logo-vpi.png',
                     path='/')
 
+from data import load_wells, load_data
 wells = load_wells()
 data = load_data()
 
@@ -22,10 +20,13 @@ year_slider = dcc.RangeSlider(
                             max=2025,
                             marks={i: "{}".format(i) for i in range(2019, 2026)},
                             step=1,
-                            value=[2019, 2025],
+                            value=[2024, 2025],
                             className="dcc_control",
                         )
 
+from components.well.left_pannel import well_selection, mapbox_map
+from components.well.right_pannel import well_statistics, right_charts,  update_well_statistics
+from graphs.map import update_mapbox_graph
 
 left_panel = html.Div(
     [

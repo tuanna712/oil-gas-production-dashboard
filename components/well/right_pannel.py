@@ -1,15 +1,29 @@
 import plotly.graph_objects as go
 from dash import html, dcc, Input, Output, State, ClientsideFunction, callback
 
+percentage_style={
+    'display': 'flex',         # Enables flexbox for row alignment
+    'flex-direction': 'row',   # Arranges items in a row
+    'align-items': 'center',   # Vertically centers the items in the row
+    'justify-content': 'space-between', # Pushes items to ends with space between
+    'width': '80%',          # Adjust width as needed
+}
+
 well_statistics = html.Div(
                     [
                         html.Div(
                             [
                                 html.Div(
                                     [
-                                        html.P(id="last_month_text", children="Placeholder", style={"font-size": "16px", "font-weight": "bold", "color": "#205072"}),
-                                        html.H6(id="wellName"), html.P("Well Name", id="stat_text"),
-                                        html.H6(id="dayOn"), html.P("Operated Days (Last Month)", id="stat_text")
+                                        html.P(id="last_month_text", children="Placeholder", style={"font-size": "16px", "font-weight": "bold", "color": "#169046", 'text-align': 'center'},),
+                                        html.H6(id="wellName", style={'color':'#169046', 'text-align': 'center'}), html.P("Well Name", style={'color':'#169046', 'text-align': 'center'}, id="stat_text"),
+                                        html.Div(
+                                            [
+                                                html.H6(id="dayOn"),
+                                                html.H6(id="dayOnChange"),
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P("Operated Days (Current Month)", id="stat_text"),
                                     ],
                                     id="well",
                                     className="mini_container",
@@ -17,8 +31,20 @@ well_statistics = html.Div(
                                 html.Div(
                                     [
                                         html.Br(),
-                                        html.H6(id="gasMonth"), html.P("Monthly Produced Gas (km3)", id="stat_text"),
-                                        html.H6(id="gasRate"), html.P("Rate of Gas Production (m3/day)", id="stat_text")
+                                        html.Div(
+                                            [
+                                                html.H6(id="gasMonth"), 
+                                                html.H6(id="gasChange")
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P(["Gas (km",html.Sup("3"),"/month)"], id="stat_text"),
+                                        html.Div(
+                                            [
+                                                html.H6(id="gasRate"), 
+                                                html.H6(id="gasRChange")
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P(["Rate of Gas (km",html.Sup("3"),"/month)"], id="stat_text"),
                                      ],
                                     id="gas",
                                     className="mini_container",
@@ -26,8 +52,20 @@ well_statistics = html.Div(
                                 html.Div(
                                     [
                                         html.Br(),
-                                        html.H6(id="oilMonth"), html.P("Oil (Last Month)", id="stat_text"),
-                                        html.H6(id="oilRate"), html.P("Oil Rate", id="stat_text")
+                                        html.Div(
+                                            [
+                                                html.H6(id="oilMonth"), 
+                                                html.H6(id="oilChange")
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P("Oil (tons/month)", id="stat_text"),
+                                        html.Div(
+                                            [
+                                                html.H6(id="oilRate"), 
+                                                html.H6(id="oilRChange")
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P("Oil Rate (tons/day)", id="stat_text")
                                      ],
                                     id="oil",
                                     className="mini_container",
@@ -35,8 +73,20 @@ well_statistics = html.Div(
                                 html.Div(
                                     [
                                         html.Br(),
-                                        html.H6(id="waterMonth"), html.P("Water (Last Month)", id="stat_text"),
-                                        html.H6(id="waterRate"), html.P("Water Rate", id="stat_text")
+                                        html.Div(
+                                            [
+                                                html.H6(id="waterMonth"), 
+                                                html.H6(id="waterChange")
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P(["Water (m",html.Sup("3"),"/month)"], id="stat_text"),
+                                        html.Div(
+                                            [
+                                                html.H6(id="waterRate"), 
+                                                html.H6(id="waterRChange")
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P(["Water Rate (m",html.Sup("3"),"/month)"], id="stat_text")
                                     ],
                                     id="water",
                                     className="mini_container",
@@ -44,8 +94,20 @@ well_statistics = html.Div(
                                 html.Div(
                                     [
                                         html.Br(),
-                                        html.H6(id="GOR"), html.P("GOR (m3/ton)", id="stat_text"),
-                                        html.H6(id="WCT"), html.P("WCT (%)", id="stat_text")
+                                        html.Div(
+                                            [
+                                                html.H6(id="GOR"), 
+                                                html.H6(id="GORChange")
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P(["GOR (m",html.Sup("3"),"/ton)"], id="stat_text"),
+                                        html.Div(
+                                            [
+                                                html.H6(id="WCT"), 
+                                                html.H6(id="WCTChange")
+                                            ], style=percentage_style,
+                                        ),
+                                        html.P("WCT (%)", id="stat_text")
                                     ],
                                     id="wct",
                                     className="mini_container",
@@ -142,6 +204,15 @@ def update_mapbox_hover_data(well_name):
     Output("waterRate", "children"),
     Output("GOR", "children"),
     Output("WCT", "children"),
+    Output("oilChange", "children"),
+    Output("gasChange", "children"),
+    Output("waterChange", "children"),
+    Output("oilRChange", "children"),
+    Output("gasRChange", "children"),
+    Output("waterRChange", "children"),
+    Output("GORChange", "children"),
+    Output("WCTChange", "children"),
+    Output("dayOnChange", "children"),
     Input("wellSelect", "value"),
     Input("mapbox-graph", "hoverData"),
 )
@@ -160,20 +231,119 @@ def update_well_statistics(well_name, map_hover_data):
     if well_df.empty:
         return [""] * 10
     # Sort by date to get the latest data
-    well_df = well_df.sort_values(by="Date", ascending=False).iloc[0]
+    well_df_last = well_df.sort_values(by="Date", ascending=False).iloc[0]
+    # The second latest month data
+    well_df_prev = well_df.sort_values(by="Date", ascending=False).iloc[1]
+    # Percentage change calculation
+    def calculate_percentage_change(current, previous):
+        if previous == 0:
+            return "0 %"
+        change = ((current) / previous) * 100
+        return f"{round(change,2)} %"
+    oil_change = calculate_percentage_change(well_df_last["OilMo"], well_df_prev["OilMo"])
+    gas_change = calculate_percentage_change(well_df_last["GasMo"], well_df_prev["GasMo"])
+    water_change = calculate_percentage_change(well_df_last["WatMo"], well_df_prev["WatMo"])
+    oilR_change = calculate_percentage_change(well_df_last["OilR"], well_df_prev["OilR"])
+    gasR_change = calculate_percentage_change(well_df_last["GasR"], well_df_prev["GasR"])
+    waterR_change = calculate_percentage_change(well_df_last["WatR"], well_df_prev["WatR"])
+    GOR_change = calculate_percentage_change(well_df_last["GOR"], well_df_prev["GOR"])
+    WCT_change = calculate_percentage_change(well_df_last["WCT"], well_df_prev["WCT"])
+    dayOn_change = calculate_percentage_change(well_df_last["DayOn"], well_df_prev["DayOn"])
+    
     # Get data from columns: #['DayOn', 'OilMo', 'GasMo', 'WatMo', 'LiqMo', 'GOR', 'OilR', 'GasR', 'WatR', 'LiqR', 'WCT']
     return (
-        well_df["WellID"],
-        well_df["DayOn"],
-        well_df["OilMo"],
-        round(well_df["OilR"], 2),
-        well_df["GasMo"],
-        round(well_df["GasR"], 2),
-        well_df["WatMo"],
-        round(well_df["WatR"], 2),
-        round(well_df["GOR"], 2),
-        round(well_df["WCT"], 2)
+        well_df_last["WellID"],
+        well_df_last["DayOn"],
+        well_df_last["OilMo"],
+        round(well_df_last["OilR"], 2),
+        well_df_last["GasMo"],
+        round(well_df_last["GasR"], 2),
+        well_df_last["WatMo"],
+        round(well_df_last["WatR"], 2),
+        round(well_df_last["GOR"], 2),
+        round(well_df_last["WCT"], 2),
+        oil_change, gas_change, water_change, 
+        oilR_change, gasR_change, waterR_change, 
+        GOR_change, WCT_change, 
+        dayOn_change,
     )
+
+def get_color_style(percentage_value):
+    """
+    Returns a dictionary with the color style based on the percentage value.
+    """
+    if percentage_value is None:
+        return {'color': 'black'}
+
+    if percentage_value < 90:
+        return {'color': '#c30010', 'font-weight': 'bold'}
+    elif 90 <= percentage_value < 100:
+        return {'color': '#1967AC', 'font-weight': 'bold'}
+    else:
+        return {'color': '#169046', 'font-weight': 'bold'}
+    
+import re
+    
+@callback(
+    Output('oilChange', 'style'),
+    Output('gasChange', 'style'),
+    Output('waterChange', 'style'),
+    Output('oilRChange', 'style'),
+    Output('gasRChange', 'style'),
+    Output('waterRChange', 'style'),
+    Output('GORChange', 'style'),
+    Output('WCTChange', 'style'),
+    Output('dayOnChange', 'style'),
+    Input('oilChange', 'children'),
+    Input('gasChange', 'children'),
+    Input('waterChange', 'children'),
+    Input('oilRChange', 'children'),
+    Input('gasRChange', 'children'),
+    Input('waterRChange', 'children'),
+    Input('GORChange', 'children'),
+    Input('WCTChange', 'children'),
+    Input('dayOnChange', 'children')
+)
+def update_all_styles(oil_change_children, gas_change_children, water_change_children,
+                      oilR_change_children, gasR_change_children, waterR_change_children,
+                      GOR_change_children, WCT_change_children, dayOn_change_children):
+    
+    # Helper to parse the string like "95%" to a float 95.0
+    def parse_percentage_string(s):
+        if s is None:
+            return None
+        # Use regex to find digits and an optional decimal point
+        match = re.search(r'(\d+(\.\d+)?)', str(s))
+        if match:
+            return float(match.group(1))
+        return None # Return None if parsing fails
+
+    # Parse all input children values to numbers
+    oil_change_val = parse_percentage_string(oil_change_children)
+    gas_change_val = parse_percentage_string(gas_change_children)
+    water_change_val = parse_percentage_string(water_change_children)
+    oilR_change_val = parse_percentage_string(oilR_change_children)
+    gasR_change_val = parse_percentage_string(gasR_change_children)
+    waterR_change_val = parse_percentage_string(waterR_change_children)
+    GOR_change_val = parse_percentage_string(GOR_change_children)
+    WCT_change_val = parse_percentage_string(WCT_change_children)
+    dayOn_change_val = parse_percentage_string(dayOn_change_children)
+
+    # Apply the styling logic to each value
+    oil_style = get_color_style(oil_change_val)
+    gas_style = get_color_style(gas_change_val)
+    water_style = get_color_style(water_change_val)
+    oilR_style = get_color_style(oilR_change_val)
+    gasR_style = get_color_style(gasR_change_val)
+    waterR_style = get_color_style(waterR_change_val)
+    GOR_style = get_color_style(GOR_change_val)
+    WCT_style = get_color_style(WCT_change_val)
+    dayOn_style = get_color_style(dayOn_change_val)
+
+    # Return a tuple of styles, in the exact order of the Outputs
+    return (oil_style, gas_style, water_style,
+            oilR_style, gasR_style, waterR_style,
+            GOR_style, WCT_style, dayOn_style)
 
 @callback(
     Output("last_month_text", "children"),

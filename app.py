@@ -3,6 +3,7 @@ from dash import html, dcc
 app = dash.Dash(
     __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}],
     use_pages=True,
+    suppress_callback_exceptions=True,
 )
 
 app.title = "Oil & Gas Wells"

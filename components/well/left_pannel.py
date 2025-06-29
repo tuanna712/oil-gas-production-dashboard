@@ -25,7 +25,7 @@ well_selection = html.Div(
             dcc.Dropdown(
                 id="wellSelect",
                 options=WELLS['Production'],
-                value="2X",
+                value="201P",
                 multi=False,
                 className="dcc_control",
             ),
